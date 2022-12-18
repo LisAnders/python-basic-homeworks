@@ -20,6 +20,11 @@ PRIME = "prime"
 
 
 def is_prime(number):
+    '''
+    функция, которая проверяет является ли число простым
+    :param number:
+    :return:
+    '''
     if number > 1:
         for n in range(2, int(number/2)+1):
             if (number % n) == 0:
