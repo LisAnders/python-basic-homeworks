@@ -20,11 +20,12 @@ PRIME = "prime"
 
 
 def is_prime(number):
-    '''
+    """
     функция, которая проверяет является ли число простым
+
     :param number:
     :return:
-    '''
+    """
     if number > 1:
         for n in range(2, int(number/2)+1):
             if (number % n) == 0:
@@ -47,8 +48,8 @@ def filter_numbers(numbers_list, filter_type):
     <<< [2, 4]
     """
     if filter_type == ODD:
-        return [number for number in numbers_list if number % 2 != 0]
+        return list(filter(lambda num: num % 2 != 0, numbers_list)) #[number for number in numbers_list if number % 2 != 0]
     if filter_type == EVEN:
-        return [number for number in numbers_list if number % 2 == 0]
+        return list(filter(lambda num: num % 2 == 0, numbers_list)) #[number for number in numbers_list if number % 2 == 0]
     if filter_type == PRIME:
-        return [number for number in numbers_list if is_prime(number)]
+        return list(filter(is_prime, numbers_list)) #[number for number in numbers_list if is_prime(number)]
