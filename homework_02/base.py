@@ -19,7 +19,7 @@ class Vehicle(ABC):
                 self.started = True
             else:
                 raise LowFuelError("Топливо на нуле!")
-        return self.started
+        #return self.started  скорее всего что-то лишнее, без него так же работает
 
     def move(self, distance):
         distance_cost = self.fuel_consumption * distance
