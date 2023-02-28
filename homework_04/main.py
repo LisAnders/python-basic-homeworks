@@ -24,16 +24,18 @@ async def create_tables():
         await conn.run_sync(Base.metadata.create_all)
 
 
-async def create_user(session: AsyncSession, name: str, username: str, email: str) -> User:
-    user = User(name=name, username=username, email=email)
-    session.add(user)
+async def create_user(session: AsyncSession, data: list[dict]) -> User:
+    for users in data:
+        user = User(name=users.get('name'), username=users.get('username'), email=users.get('email'))
+        session.add(user)
     await session.commit()
     return user
 
 
-async def create_post(session: AsyncSession, user_id: int, title: str, body: str) -> Post:
-    post = Post(user_id=user_id, title=title, body=body)
-    session.add(post)
+async def create_post(session: AsyncSession, data: list[dict]) -> Post:
+    for posts in data:
+        post = Post(user_id=int(posts.get('userId')), title=posts.get('title'), body=posts.get('body'))
+        session.add(post)
     await session.commit()
     return post
 
@@ -42,20 +44,8 @@ async def async_main():
     async with Session() as session:
         await create_tables()
         user_data, post_data = await asyncio.gather(users_data(), posts_data())
-        for user in user_data:
-            await create_user(
-                session=session,
-                name=user.get('name'),
-                username=user.get('username'),
-                email=user.get('email'),
-            )
-        for post in post_data:
-            await create_post(
-                session=session,
-                user_id=int(post.get('userId')),
-                title=post.get('title'),
-                body=post.get('body'),
-            )
+        await create_user(session=session, data=user_data)
+        await create_post(session=session, data=post_data)
 
 
 def main():
