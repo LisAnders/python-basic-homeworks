@@ -1,0 +1,35 @@
+{% extends "article/art_base.html" %}
+
+{% block title %}
+    Create article
+{% endblock title %}
+
+{% block body %}
+
+    <h2>Создать товар</h2>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="mb-3">
+            {{ form.code.label(class="form-label") }}
+            {{ form.code(class="form-control")  }}
+        </div>
+        <div class="mb-3">
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control")  }}
+        </div>
+        <div class="mb-3">
+            <div class="form-check">
+                {{ form.status.label(class="form-label") }}
+                {{ form.status(class="form-check-input")  }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-success">Создать</button>
+        </div>
+        <div class="my-3">
+            <a href="{{ url_for('article_app.article_list') }}" class="btn btn-sm btn-info">К списку товаров</a>
+        </div>
+    
+    </form>
+
+{% endblock body %}

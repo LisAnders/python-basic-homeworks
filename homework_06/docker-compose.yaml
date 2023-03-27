@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  app:
+    build: 
+      dockerfile: docker-build/app/Dockerfile
+      context: ./
+    environment:
+      SQLALCHEMY_DATABASE_URI: postgresql+pg8000://admin:pass12345@pg:5432/bilshop
+      CONFIG_NAME: ProductionConfig
+    ports:
+      - "5000:80"
+    depends_on:
+      pg:
+        condition: service_healthy
+
+  pg:
+    image: postgres
+    environment:
+      POSTGRES_DB: bilshop
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pass12345
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 3s
+      retries: 7
+      
+
+volumes:
+  db-data:

@@ -1,0 +1,59 @@
+{% extends "article/art_base.html" %}
+
+{% block title %}
+    Art details
+{% endblock title %}
+
+{% block body %}
+    <h3>Детали товара "{{ article.code }} - {{ article.name }}"</h3>
+    <div class="my-3">
+        <table class="table table-striped">
+            <tr>
+                <td>Код товара</td>
+                <td>{{ article.code }}</td>
+            </tr>
+            <tr>
+                <td>Наименование</td>
+                <td>{{ article.name }}</td>
+            </tr>
+            <tr>
+                <td>Статус</td>
+                <td>{% if article.status == True %} "Активный" {% else %} "Не Активный" {% endif %}</td>
+            </tr>
+            <tr>
+                <td>Время изменения</td>
+                <td>{{ article.lastdate }}</td>
+            </tr>            
+        </table>
+    </div>
+    <div class="mb-2">
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-article">
+        Удалить
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-delete-article" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Удаление товара: {{ article.name }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Удалить товар: {{ article.name }}?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <form method="post" action="{{ url_for('article_app.delete', id_art=article.id_art) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="my-3">
+            <a href="{{ url_for('article_app.article_list') }}" class="btn btn-sm btn-info">К списку товаров</a>
+        </div>
+    </div>
+{% endblock body %}
