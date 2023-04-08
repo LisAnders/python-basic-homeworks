@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ZooShop</title>
+</head>
+<body>
+    <ol>
+        {% for article in articles%}
+        <li>
+            {% for category in article.artcat.category.all%}
+                {{category.name}}
+                 <ul>
+                    <li>
+                        {{article.artcat.name}}
+                        <li>
+                            {{article.code}} | {{article.name}}
+                            
+                        </li>
+                    </li>
+                 </ul>
+            {% endfor %} 
+        </li>
+        {% endfor %}
+    </ol>
+</body>
+</html>
