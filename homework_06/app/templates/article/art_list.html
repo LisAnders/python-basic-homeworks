@@ -1,0 +1,32 @@
+{% extends "article/art_base.html" %}
+
+{% block title %}
+    Art list
+{% endblock title %}
+
+{% block body %}
+    <h2>Список товаров</h2>
+    <div class="my-3">
+        <table class="table table-striped">
+            <tr>
+            <th scope="col">id</th>
+            <th scope="col">Код товара</th>
+            <th scope="col">Наименование</th>
+            </tr>
+            {% for article in articles %}
+                <tr>
+                <td>{{ article.id_art }}</td>
+                <td>{{article.code}}</td>
+                <td>{{ article.name }}</td>
+                <td>
+                    <a href="{{ url_for('article_app.details', id_art=article.id_art) }}" class="btn btn-sm btn-outline-info" >Подробнее</a>
+                </td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+    <div class="my-3">
+        <a href="{{ url_for('article_app.create') }}" class="btn btn-success">Создать товар</a>
+    </div>
+{% endblock body %}
