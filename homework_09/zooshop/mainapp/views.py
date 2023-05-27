@@ -31,3 +31,4 @@ class ArticleUpdate(UpdateView):
 class ArticleDelete(DeleteView):
     model = Article
     success_url = "/article-list/"
+    
