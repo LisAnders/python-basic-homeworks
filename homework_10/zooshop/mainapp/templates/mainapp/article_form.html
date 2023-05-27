@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> Создать товар</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-sm btn-success" type="submit">Сохранить</button>
+    </form>
+    <div class="my-3">
+        <a class="btn btn-sm btn-primary" href="/article-list/">К списку позиций</a>
+    </div>
+
+{% endblock content %}

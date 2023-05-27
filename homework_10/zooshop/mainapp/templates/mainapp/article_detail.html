@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h3>Данные по товару "{{object.name}}"</h3>
+    <div class="my-3"></div>
+        <table class="table">
+            <tr>
+                <td>ID</td>
+                <td>{{object.id}}</td>
+            </tr>
+            <tr>
+                <td>Код товара</td>
+                <td>{{object.code}}</td>
+            </tr>
+            <tr>
+                <td>Наименование</td>
+                <td>{{object.name}}</td>
+            </tr>
+            <tr>
+                <td>Активность товара</td>
+                <td>
+                    {% if object.is_active == True %}
+                        Активен
+                    {% else %}
+                        Не активен
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Категория товара</td>
+                <td>{{object.artcat}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="my-3">
+        <a class="btn btn-sm btn-warning" href="/article-update/{{object.id}}/">Изменить</a>
+    </div>
+    <div class="my-3">
+        <a class="btn btn-sm btn-danger" href="/article-delete/{{object.id}}/">Удалить</a>
+    </div>
+    <div class="my-3">
+        <a class="btn btn-sm btn-primary" href="/article-list/">К списку позиций</a>
+    </div>
+{% endblock content %}
