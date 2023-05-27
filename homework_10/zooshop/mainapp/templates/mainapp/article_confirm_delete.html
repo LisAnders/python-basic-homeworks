@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h3>Вы действительно хотите удалить товар "{{object.name}}"?</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <button class="btn btn-danger">Да</button>
+        <a class="btn btn-primary" href="/article-list/">Нет</a>
+    </form>
+
+{% endblock content %}
